@@ -19,7 +19,11 @@ export default function RootLayout({
       <body suppressHydrationWarning>
         <Providers>
           <HeroNavbar />
-          {children}
+          <div className="flex justify-center min-h-screen">
+            <div className="w-full max-w-4xl">
+              {children}
+            </div>
+          </div>
         </Providers>
         <Analytics />
       </body>

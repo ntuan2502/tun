@@ -18,7 +18,15 @@ import {
 } from "@heroui/react";
 import ThemeSwitcher from "./ThemeSwitcher";
 import LogoSVG from "./svg/LogoSVG";
-import { Activity, ChevronDown, Flash, Lock, Scale, Server, TagUser } from "./svg/UISVG";
+import {
+  Activity,
+  ChevronDown,
+  Flash,
+  Lock,
+  Scale,
+  Server,
+  TagUser,
+} from "./svg/UISVG";
 
 export function LogoComponent() {
   return (
@@ -72,10 +80,12 @@ export default function HeroNavbar() {
   }
 
   const icons = {
-    chevron: <ChevronDown fill="currentColor" size={16}/>,
+    chevron: <ChevronDown fill="currentColor" size={16} />,
     scale: <Scale className="text-warning" fill="currentColor" size={30} />,
     lock: <Lock className="text-success" fill="currentColor" size={30} />,
-    activity: <Activity className="text-secondary" fill="currentColor" size={30} />,
+    activity: (
+      <Activity className="text-secondary" fill="currentColor" size={30} />
+    ),
     flash: <Flash className="text-primary" fill="currentColor" size={30} />,
     server: <Server className="text-success" fill="currentColor" size={30} />,
     user: <TagUser className="text-danger" fill="currentColor" size={30} />,
@@ -118,6 +128,7 @@ export default function HeroNavbar() {
           >
             <DropdownItem
               key="autoscaling"
+              textValue="autoscaling"
               description="ACME scales apps to meet user demand, automagically, based on load."
               startContent={icons.scale}
             >
@@ -125,20 +136,24 @@ export default function HeroNavbar() {
             </DropdownItem>
             <DropdownItem
               key="usage_metrics"
+              textValue="usage_metrics"
               description="Real-time metrics to debug issues. Slow query added? We’ll show you exactly where."
               startContent={icons.activity}
             >
               Usage Metrics
             </DropdownItem>
             <DropdownItem
-              key="production_ready"
-              description="ACME runs on ACME, join us and others serving requests at web scale."
+              key="tinh_tien_dien"
+              description="Công cụ tính hóa đơn tiền điện"
               startContent={icons.flash}
+              as={Link}
+              href="/tinh-tien-dien"
             >
-              Production Ready
+              Tính tiền điện
             </DropdownItem>
             <DropdownItem
               key="99_uptime"
+              textValue="99_uptime"
               description="Applications stay on the grid with high availability and high uptime guarantees."
               startContent={icons.server}
             >
@@ -146,6 +161,7 @@ export default function HeroNavbar() {
             </DropdownItem>
             <DropdownItem
               key="supreme_support"
+              textValue="supreme_support"
               description="Overcome any challenge with a supporting team ready to respond."
               startContent={icons.user}
             >
@@ -221,6 +237,11 @@ export default function HeroNavbar() {
             Home
           </Link>
         </NavbarMenuItem>
+        <NavbarMenuItem>
+          <Link className="w-full" href="/tinh-tien-dien">
+            Tính tiền điện
+          </Link>
+        </NavbarMenuItem>
         {!isLoggedIn ? (
           <>
             <NavbarMenuItem>
@@ -241,7 +262,11 @@ export default function HeroNavbar() {
           </>
         ) : (
           <NavbarMenuItem>
-            <Link className="w-full text-red-500" href="#" onClick={handleLogout}>
+            <Link
+              className="w-full text-red-500"
+              href="#"
+              onClick={handleLogout}
+            >
               Logout
             </Link>
           </NavbarMenuItem>
