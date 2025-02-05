@@ -61,10 +61,10 @@ export default function HeroNavbar() {
       </NavbarContent>
 
       <NavbarContent justify="end">
-        <NavbarItem className="hidden lg:flex">
+        <NavbarItem className="hidden sm:flex">
           <Link href="#">Login</Link>
         </NavbarItem>
-        <NavbarItem className="hidden lg:flex">
+        <NavbarItem className="hidden sm:flex">
           <Button as={Link} color="warning" href="#" variant="flat">
             Sign Up
           </Button>
