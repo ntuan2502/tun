@@ -220,104 +220,108 @@ export default function Home() {
   };
 
   return (
-    <div className="m-4">
-      <Form
-        className="w-full my-4"
-        validationBehavior="native"
-        onSubmit={onSubmit}
-      >
-        <Input
-          isRequired
-          label="Chỉ số đầu"
-          labelPlacement="outside"
-          name="startIndex"
-          placeholder="0"
-          type="number"
-          defaultValue="0"
-          min={0}
-        />
-        <Input
-          isRequired
-          label="Chỉ số cuối"
-          labelPlacement="outside"
-          name="endIndex"
-          placeholder="100"
-          type="number"
-          defaultValue="0"
-          min={0}
-        />
-        <Input
-          label="VAT (%)"
-          labelPlacement="outside"
-          name="vat"
-          type="number"
-          defaultValue="8"
-          min={0}
-          max={100}
-        />
-        <Button type="submit" variant="bordered">
-          Submit
-        </Button>
-        {bills.length > 0 && (
+    <div className="flex justify-center min-h-screen">
+      <div className="w-full max-w-4xl">
+        <div className="m-4">
+          <Form
+            className="w-full my-4"
+            validationBehavior="native"
+            onSubmit={onSubmit}
+          >
+            <Input
+              isRequired
+              label="Chỉ số đầu"
+              labelPlacement="outside"
+              name="startIndex"
+              placeholder="0"
+              type="number"
+              defaultValue="0"
+              min={0}
+            />
+            <Input
+              isRequired
+              label="Chỉ số cuối"
+              labelPlacement="outside"
+              name="endIndex"
+              placeholder="100"
+              type="number"
+              defaultValue="0"
+              min={0}
+            />
+            <Input
+              label="VAT (%)"
+              labelPlacement="outside"
+              name="vat"
+              type="number"
+              defaultValue="8"
+              min={0}
+              max={100}
+            />
+            <Button type="submit" variant="bordered">
+              Submit
+            </Button>
+            {bills.length > 0 && (
+              <Table aria-label="Example table with dynamic content">
+                <TableHeader>
+                  <TableColumn>Bậc</TableColumn>
+                  <TableColumn>Chưa tính VAT</TableColumn>
+                  <TableColumn>Tiền VAT</TableColumn>
+                  <TableColumn>Tổng</TableColumn>
+                </TableHeader>
+                <TableBody items={bills}>
+                  {(bill) => (
+                    <TableRow key={bill.formattedVatAmount}>
+                      <TableCell>{bill.range}</TableCell>
+                      <TableCell>{bill.formattedBeforeVatAmount} VND</TableCell>
+                      <TableCell>{bill.formattedVatAmount} VND</TableCell>
+                      <TableCell>{bill.formattedAfterAmount} VND </TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
+            )}
+            {submitted && (
+              <div className="text-small text-default-500">
+                Bạn đã nhập: <code>{JSON.stringify(submitted)}</code>
+              </div>
+            )}
+            {totalAmountBeforeVat !== null && (
+              <div className="text-small text-default-500">
+                Tổng tiền điện (Chưa tính VAT):{" "}
+                <strong>{formatCurrency(totalAmountBeforeVat)} VND </strong>
+              </div>
+            )}
+            {totalVatAmount !== null && (
+              <div className="text-small text-default-500">
+                Tổng tiền VAT phải trả:{" "}
+                <strong>{formatCurrency(totalVatAmount)} VND </strong>
+              </div>
+            )}
+            {totalAmountAfter !== null && (
+              <div className="text-small text-default-500">
+                Tổng tiền điện (có VAT):{" "}
+                <strong>{formatCurrency(totalAmountAfter)} VND </strong>
+              </div>
+            )}
+          </Form>
           <Table aria-label="Example table with dynamic content">
-            <TableHeader>
-              <TableColumn>Bậc</TableColumn>
-              <TableColumn>Chưa tính VAT</TableColumn>
-              <TableColumn>Tiền VAT</TableColumn>
-              <TableColumn>Tổng</TableColumn>
+            <TableHeader columns={columns}>
+              {(column) => (
+                <TableColumn key={column.key}>{column.label}</TableColumn>
+              )}
             </TableHeader>
-            <TableBody items={bills}>
-              {(bill) => (
-                <TableRow key={bill.formattedVatAmount}>
-                  <TableCell>{bill.range}</TableCell>
-                  <TableCell>{bill.formattedBeforeVatAmount} VND</TableCell>
-                  <TableCell>{bill.formattedVatAmount} VND</TableCell>
-                  <TableCell>{bill.formattedAfterAmount} VND </TableCell>
+            <TableBody items={rows}>
+              {(item) => (
+                <TableRow key={item.key}>
+                  {(columnKey) => (
+                    <TableCell>{getKeyValue(item, columnKey)}</TableCell>
+                  )}
                 </TableRow>
               )}
             </TableBody>
           </Table>
-        )}
-        {submitted && (
-          <div className="text-small text-default-500">
-            Bạn đã nhập: <code>{JSON.stringify(submitted)}</code>
-          </div>
-        )}
-        {totalAmountBeforeVat !== null && (
-          <div className="text-small text-default-500">
-            Tổng tiền điện (Chưa tính VAT):{" "}
-            <strong>{formatCurrency(totalAmountBeforeVat)} VND </strong>
-          </div>
-        )}
-        {totalVatAmount !== null && (
-          <div className="text-small text-default-500">
-            Tổng tiền VAT phải trả:{" "}
-            <strong>{formatCurrency(totalVatAmount)} VND </strong>
-          </div>
-        )}
-        {totalAmountAfter !== null && (
-          <div className="text-small text-default-500">
-            Tổng tiền điện (có VAT):{" "}
-            <strong>{formatCurrency(totalAmountAfter)} VND </strong>
-          </div>
-        )}
-      </Form>
-      <Table aria-label="Example table with dynamic content">
-        <TableHeader columns={columns}>
-          {(column) => (
-            <TableColumn key={column.key}>{column.label}</TableColumn>
-          )}
-        </TableHeader>
-        <TableBody items={rows}>
-          {(item) => (
-            <TableRow key={item.key}>
-              {(columnKey) => (
-                <TableCell>{getKeyValue(item, columnKey)}</TableCell>
-              )}
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
+        </div>
+      </div>
     </div>
   );
 }

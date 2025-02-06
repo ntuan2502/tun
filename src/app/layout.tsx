@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "@/app/globals.css";
 import { Analytics } from "@vercel/analytics/react";
-import { Providers } from "./providers";
-import HeroNavbar from "./components/HeroNavbar";
+import { Providers } from "@/app/providers";
+import HeroNavbar from "@/app/components/HeroNavbar";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -19,11 +19,11 @@ export default function RootLayout({
       <body suppressHydrationWarning>
         <Providers>
           <HeroNavbar />
-          <div className="flex justify-center min-h-screen">
-            <div className="w-full max-w-4xl">
-              {children}
-            </div>
-          </div>
+          {/* <div className="flex justify-center min-h-screen">
+            <div className="w-full max-w-4xl"> */}
+          {children}
+          {/* </div>
+          </div> */}
         </Providers>
         <Analytics />
       </body>

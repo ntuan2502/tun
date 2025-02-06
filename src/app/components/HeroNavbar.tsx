@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import {
   Navbar,
@@ -27,6 +27,8 @@ import {
   Server,
   TagUser,
 } from "./svg/UISVG";
+import SignOut from "./signout-button";
+import { useSession } from "next-auth/react";
 
 export function LogoComponent() {
   return (
@@ -41,43 +43,7 @@ export function LogoComponent() {
 
 export default function HeroNavbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState<{ name: string; email: string } | null>(
-    null
-  );
-  const [isLoading, setIsLoading] = useState(true); // Thêm state kiểm tra đang loading
-
-  // Kiểm tra trạng thái đăng nhập và lấy thông tin người dùng khi component được mount
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user"); // Lấy thông tin người dùng từ localStorage
-    if (storedUser) {
-      setUser(JSON.parse(storedUser)); // Nếu có thông tin người dùng, cập nhật trạng thái người dùng
-      setIsLoggedIn(true);
-    }
-    setIsLoading(false); // Sau khi đã kiểm tra xong, cập nhật isLoading thành false
-  }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem("user"); // Xóa thông tin đăng nhập khỏi localStorage
-    setIsLoggedIn(false); // Đặt lại trạng thái đăng nhập
-    setUser(null); // Xóa thông tin người dùng khỏi trạng thái
-  };
-
-  const handleFakeLogin = () => {
-    // Giả lập thông tin người dùng đăng nhập
-    const fakeUser = {
-      name: "Tún",
-      email: "admin@tun.io.vn",
-    };
-    localStorage.setItem("user", JSON.stringify(fakeUser)); // Lưu thông tin người dùng vào localStorage
-    setUser(fakeUser); // Cập nhật trạng thái người dùng
-    setIsLoggedIn(true); // Đặt trạng thái đăng nhập thành true
-  };
-
-  // Chỉ render UI sau khi không còn loading
-  if (isLoading) {
-    return null; // Có thể trả về một loader hoặc null nếu bạn muốn ẩn giao diện trong lúc loading
-  }
+  const { data: session } = useSession();
 
   const icons = {
     chevron: <ChevronDown fill="currentColor" size={16} />,
@@ -90,6 +56,10 @@ export default function HeroNavbar() {
     server: <Server className="text-success" fill="currentColor" size={30} />,
     user: <TagUser className="text-danger" fill="currentColor" size={30} />,
   };
+
+  // if (!session || session.user == null) {
+  //   return null;
+  // }
 
   return (
     <Navbar isBordered isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
@@ -172,7 +142,7 @@ export default function HeroNavbar() {
       </NavbarContent>
 
       <NavbarContent as="div" justify="end">
-        {isLoggedIn && user ? (
+        {session && session.user ? (
           <NavbarItem>
             <Dropdown placement="bottom-end">
               <DropdownTrigger>
@@ -181,9 +151,9 @@ export default function HeroNavbar() {
                   as="button"
                   className="transition-transform"
                   color="secondary"
-                  name={user.name} // Hiển thị tên người dùng từ localStorage
+                  name={session.user.name || "null"} // Hiển thị tên người dùng từ localStorage
                   size="sm"
-                  src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+                  src={session.user.image || "null"}
                 />
               </DropdownTrigger>
               <DropdownMenu aria-label="Profile Actions" variant="flat">
@@ -193,19 +163,14 @@ export default function HeroNavbar() {
                   className="h-14 gap-2"
                 >
                   <p className="font-semibold">Signed in as</p>
-                  <p className="font-semibold">{user.email}</p>{" "}
+                  <p className="font-semibold">{session.user.email}</p>{" "}
                   {/* Hiển thị email người dùng */}
                 </DropdownItem>
                 <DropdownItem key="settings" textValue="settings">
                   My Settings
                 </DropdownItem>
-                <DropdownItem
-                  key="logout"
-                  textValue="logout"
-                  color="danger"
-                  onPress={handleLogout}
-                >
-                  Log Out
+                <DropdownItem key="logout" textValue="logout" color="danger">
+                  <SignOut />
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
@@ -213,15 +178,12 @@ export default function HeroNavbar() {
         ) : (
           <>
             <NavbarItem className="hidden sm:flex">
-              <Link href="#">Login</Link>
+              <Link href="/auth/login">Login</Link>
             </NavbarItem>
             <NavbarItem className="hidden sm:flex">
               <Button as={Link} color="warning" href="#" variant="flat">
                 Sign Up
               </Button>
-            </NavbarItem>
-            <NavbarItem className="hidden sm:flex">
-              <Button onPress={handleFakeLogin}>Fake Login</Button>
             </NavbarItem>
           </>
         )}
@@ -242,10 +204,16 @@ export default function HeroNavbar() {
             Tính tiền điện
           </Link>
         </NavbarMenuItem>
-        {!isLoggedIn ? (
+        {session && session.user ? (
+          <NavbarMenuItem>
+            <Link className="w-full text-red-500" href="#">
+              <SignOut />
+            </Link>
+          </NavbarMenuItem>
+        ) : (
           <>
             <NavbarMenuItem>
-              <Link className="w-full" href="#">
+              <Link className="w-full" href="/auth/login">
                 Login
               </Link>
             </NavbarMenuItem>
@@ -254,22 +222,7 @@ export default function HeroNavbar() {
                 Sign Up
               </Link>
             </NavbarMenuItem>
-            <NavbarMenuItem>
-              <Link className="w-full" href="#" onClick={handleFakeLogin}>
-                Fake Login
-              </Link>
-            </NavbarMenuItem>
           </>
-        ) : (
-          <NavbarMenuItem>
-            <Link
-              className="w-full text-red-500"
-              href="#"
-              onClick={handleLogout}
-            >
-              Logout
-            </Link>
-          </NavbarMenuItem>
         )}
       </NavbarMenu>
     </Navbar>
