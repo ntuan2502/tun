@@ -27,8 +27,7 @@ import {
   Server,
   TagUser,
 } from "./svg/UISVG";
-import SignOut from "./signout-button";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 export function LogoComponent() {
   return (
@@ -169,8 +168,8 @@ export default function HeroNavbar() {
                 <DropdownItem key="settings" textValue="settings">
                   My Settings
                 </DropdownItem>
-                <DropdownItem key="logout" textValue="logout" color="danger">
-                  <SignOut />
+                <DropdownItem key="signout" textValue="signout" color="danger">
+                  <div onClick={() => signOut()}>Sign Out</div>
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
@@ -178,7 +177,7 @@ export default function HeroNavbar() {
         ) : (
           <>
             <NavbarItem className="hidden sm:flex">
-              <Link href="/auth/login">Login</Link>
+              <Link href="/auth/signin">Sign In</Link>
             </NavbarItem>
             <NavbarItem className="hidden sm:flex">
               <Button as={Link} color="warning" href="#" variant="flat">
@@ -207,14 +206,14 @@ export default function HeroNavbar() {
         {session && session.user ? (
           <NavbarMenuItem>
             <Link className="w-full text-red-500" href="#">
-              <SignOut />
+              <div onClick={() => signOut()}>Sign Out</div>
             </Link>
           </NavbarMenuItem>
         ) : (
           <>
             <NavbarMenuItem>
-              <Link className="w-full" href="/auth/login">
-                Login
+              <Link className="w-full" href="/auth/signin">
+                Sign In
               </Link>
             </NavbarMenuItem>
             <NavbarMenuItem>

@@ -1,4 +1,5 @@
-import SignIn from "@/app/components/sign-in";
+"use client";
+import { signIn } from "next-auth/react";
 import type { SVGProps } from "react";
 
 export default function HalfSidedGlassMorphismAuthentication() {
@@ -19,10 +20,11 @@ export default function HalfSidedGlassMorphismAuthentication() {
               aria-label="Sign in with Google"
               className="inline-flex h-12 w-full items-center justify-center gap-3 rounded-xl bg-white px-5 py-3 font-medium duration-200 hover:bg-white/50 focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
               type="button"
+              onClick={() => signIn("google", { redirectTo: "/" })}
             >
               <GoogleIcon className="size-6" />
-              {/* <span>Sign in with Google</span> */}
-              <SignIn />
+              <span>Sign in with Google</span>
+              {/* <SignIn /> */}
             </button>
             <div className="relative py-3">
               <div className="relative flex justify-center">
