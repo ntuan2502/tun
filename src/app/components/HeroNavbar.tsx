@@ -161,15 +161,21 @@ export default function HeroNavbar() {
                   textValue="profile"
                   className="h-14 gap-2"
                 >
-                  <p className="font-semibold">Signed in as</p>
-                  <p className="font-semibold">{session.user.email}</p>{" "}
-                  {/* Hiển thị email người dùng */}
+                  <p className="font-semibold">
+                    Signed in as {session.user.name}
+                  </p>
+                  <p className="font-semibold">Email: {session.user.email}</p>{" "}
                 </DropdownItem>
                 <DropdownItem key="settings" textValue="settings">
                   My Settings
                 </DropdownItem>
-                <DropdownItem key="signout" textValue="signout" color="danger">
-                  <div onClick={() => signOut()}>Sign Out</div>
+                <DropdownItem
+                  key="signout"
+                  textValue="signout"
+                  color="danger"
+                  onPress={() => signOut()}
+                >
+                  Sign Out
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
@@ -205,8 +211,12 @@ export default function HeroNavbar() {
         </NavbarMenuItem>
         {session && session.user ? (
           <NavbarMenuItem>
-            <Link className="w-full text-red-500" href="#">
-              <div onClick={() => signOut()}>Sign Out</div>
+            <Link
+              className="w-full text-red-500"
+              href="#"
+              onClick={() => signOut()}
+            >
+              Sign Out
             </Link>
           </NavbarMenuItem>
         ) : (
