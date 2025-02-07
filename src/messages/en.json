@@ -1,0 +1,44 @@
+{
+  "ui": {
+    "nav": {
+      "home": {
+        "title": "Home",
+        "description": "Homepage"
+      },
+      "electric": {
+        "title": "Calculate electricity bills",
+        "description": "Electricity bill calculation tool"
+      },
+      "features": {
+        "title": "Features"
+      },
+      "signin": {
+        "title": "Sign in",
+        "description": "Sign in to your account"
+      },
+      "signup": {
+        "title": "Sign up",
+        "description": "Create a new account"
+      },
+      "signout": {
+        "title": "Sign out",
+        "description": "Sign out your account"
+      }
+    },
+    "electric": {
+      "headIndex": "Head idex",
+      "tailIndex": "Tail Index",
+      "VATPercent": "VAT (%)",
+      "submit": "Submit",
+      "rank": "Rank",
+      "notVAT": "Not include VAT",
+      "VATPrices": "VAT prices",
+      "total": "Total",
+      "usageNorms": "Usage norms",
+      "max": "Max",
+      "totalNotVAT": "Total (not include VAT):",
+      "totalVAT": "Total VAT:",
+      "totalAll": "Total (include VAT):"
+    }
+  }
+}

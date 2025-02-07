@@ -1,0 +1,44 @@
+{
+  "ui": {
+    "nav": {
+      "home":{
+        "title": "Trang chủ",
+        "description": "Trang chủ của website"
+      },
+      "electric": {
+        "title": "Tính tiền điện",
+        "description": "Công cụ tính hóa đơn tiền điện"
+      },
+      "features": {
+        "title": "Tính năng"
+      },
+      "signin": {
+        "title": "Đăng nhập",
+        "description": "Đăng nhập vào tính năng này"
+      },
+      "signup": {
+        "title": "Đăng ký",
+        "description": "Đăng ký tài khoản và đăng nhập"
+      },
+      "signout":{
+        "title": "Đăng xuất",
+        "description": "Đăng xuất khỏi tính năng này"
+      }
+    },
+    "electric": {
+      "headIndex": "Chỉ số đầu",
+      "tailIndex": "Chỉ số cuối",
+      "VATPercent": "VAT (%)",
+      "submit": "Gửi",
+      "rank": "Bậc",
+      "notVAT": "Chưa bao gồm VAT",
+      "VATPrices": "Tiền VAT",
+      "total": "Tổng",
+      "usageNorms": "Định mức sử dụng",
+      "max": "Tối đa",
+      "totalNotVAT": "Tổng tiền điện (chưa bao gồm VAT):",
+      "totalVAT": "Tổng VAT:",
+      "totalAll": "Tổng tiền điện (đã bao gồm VAT):"
+    }
+  }
+}

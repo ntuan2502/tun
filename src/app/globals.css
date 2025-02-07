@@ -15,3 +15,13 @@ html.light {
   background-color: white;
   color: black;
 }
+
+/* Mặc định màu đen */
+.apple-icon svg path {
+  fill: #000; /* màu đen */
+}
+
+/* Khi ở dark mode, thay màu thành trắng */
+.dark .apple-icon svg path {
+  fill: #fff; /* màu trắng */
+}

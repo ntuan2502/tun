@@ -16,8 +16,8 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "@heroui/react";
-import ThemeSwitcher from "./ThemeSwitcher";
-import LogoSVG from "./svg/LogoSVG";
+import ThemeSwitcher from "@/app/components/ThemeSwitcher";
+import LogoSVG from "@/app/components/svg/LogoSVG";
 import {
   Activity,
   ChevronDown,
@@ -26,8 +26,10 @@ import {
   Scale,
   Server,
   TagUser,
-} from "./svg/UISVG";
+} from "@/app/components/svg/UISVG";
 import { signOut, useSession } from "next-auth/react";
+import Language from "@/app/components/Language";
+import { useTranslations } from "next-intl";
 
 export function LogoComponent() {
   return (
@@ -43,6 +45,7 @@ export function LogoComponent() {
 export default function HeroNavbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { data: session } = useSession();
+  const t = useTranslations();
 
   const icons = {
     chevron: <ChevronDown fill="currentColor" size={16} />,
@@ -55,10 +58,6 @@ export default function HeroNavbar() {
     server: <Server className="text-success" fill="currentColor" size={30} />,
     user: <TagUser className="text-danger" fill="currentColor" size={30} />,
   };
-
-  // if (!session || session.user == null) {
-  //   return null;
-  // }
 
   return (
     <Navbar isBordered isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
@@ -84,7 +83,7 @@ export default function HeroNavbar() {
                 radius="sm"
                 variant="light"
               >
-                Features
+                {t("ui.nav.features.title")}
               </Button>
             </DropdownTrigger>
           </NavbarItem>
@@ -95,6 +94,15 @@ export default function HeroNavbar() {
               base: "gap-4",
             }}
           >
+            <DropdownItem
+              key="tinh_tien_dien"
+              description={t("ui.nav.electric.description")}
+              startContent={icons.flash}
+              as={Link}
+              href="/tinh-tien-dien"
+            >
+              {t("ui.nav.electric.title")}
+            </DropdownItem>
             <DropdownItem
               key="autoscaling"
               textValue="autoscaling"
@@ -111,15 +119,7 @@ export default function HeroNavbar() {
             >
               Usage Metrics
             </DropdownItem>
-            <DropdownItem
-              key="tinh_tien_dien"
-              description="Công cụ tính hóa đơn tiền điện"
-              startContent={icons.flash}
-              as={Link}
-              href="/tinh-tien-dien"
-            >
-              Tính tiền điện
-            </DropdownItem>
+
             <DropdownItem
               key="99_uptime"
               textValue="99_uptime"
@@ -183,11 +183,11 @@ export default function HeroNavbar() {
         ) : (
           <>
             <NavbarItem className="hidden sm:flex">
-              <Link href="/auth/signin">Sign In</Link>
+              <Link href="/auth/signin">{t("ui.nav.signin.title")}</Link>
             </NavbarItem>
             <NavbarItem className="hidden sm:flex">
-              <Button as={Link} color="warning" href="#" variant="flat">
-                Sign Up
+              <Button as={Link} color="warning" href="/auth/signup" variant="flat">
+                {t("ui.nav.signup.title")}
               </Button>
             </NavbarItem>
           </>
@@ -196,17 +196,20 @@ export default function HeroNavbar() {
         <NavbarItem>
           <ThemeSwitcher />
         </NavbarItem>
+        <NavbarItem>
+          <Language />
+        </NavbarItem>
       </NavbarContent>
 
       <NavbarMenu>
         <NavbarMenuItem>
           <Link className="w-full" href="/">
-            Home
+          {t("ui.nav.home.title")}
           </Link>
         </NavbarMenuItem>
         <NavbarMenuItem>
           <Link className="w-full" href="/tinh-tien-dien">
-            Tính tiền điện
+          {t("ui.nav.electric.title")}
           </Link>
         </NavbarMenuItem>
         {session && session.user ? (
@@ -216,19 +219,19 @@ export default function HeroNavbar() {
               href="#"
               onClick={() => signOut()}
             >
-              Sign Out
+              {t("ui.nav.signout.title")}
             </Link>
           </NavbarMenuItem>
         ) : (
           <>
             <NavbarMenuItem>
               <Link className="w-full" href="/auth/signin">
-                Sign In
+                {t("ui.nav.signin.title")}
               </Link>
             </NavbarMenuItem>
             <NavbarMenuItem>
-              <Link className="w-full" href="#">
-                Sign Up
+              <Link className="w-full" href="/auth/signup">
+                {t("ui.nav.signup.title")}
               </Link>
             </NavbarMenuItem>
           </>

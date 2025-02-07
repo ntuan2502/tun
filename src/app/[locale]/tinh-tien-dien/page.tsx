@@ -11,6 +11,7 @@ import {
   Input,
   Button,
 } from "@heroui/react";
+import { useTranslations } from "next-intl";
 import { useState, useEffect } from "react";
 
 // Kiểu dữ liệu cho từng bậc
@@ -71,26 +72,8 @@ interface BillDetail {
   formattedVatAmount: string;
 }
 
-const columns = [
-  {
-    key: "key",
-    label: "Bậc",
-  },
-  {
-    key: "range",
-    label: "Mức sử dụng",
-  },
-  {
-    key: "count",
-    label: "SL tối đa",
-  },
-  {
-    key: "after",
-    label: "11/10/2024",
-  },
-];
-
 export default function Home() {
+  const t = useTranslations();
   const [submitted, setSubmitted] = useState<{ [key: string]: string } | null>(
     null
   );
@@ -219,6 +202,25 @@ export default function Home() {
     setSubmitted(data); // Lưu lại thông tin form
   };
 
+  const columns = [
+    {
+      key: "key",
+      label: t("ui.electric.rank"),
+    },
+    {
+      key: "range",
+      label: t("ui.electric.usageNorms"),
+    },
+    {
+      key: "count",
+      label: t("ui.electric.max"),
+    },
+    {
+      key: "after",
+      label: "11/10/2024",
+    },
+  ];
+
   return (
     <div className="flex justify-center min-h-screen">
       <div className="w-full max-w-4xl">
@@ -230,7 +232,7 @@ export default function Home() {
           >
             <Input
               isRequired
-              label="Chỉ số đầu"
+              label={t("ui.electric.headIndex")}
               labelPlacement="outside"
               name="startIndex"
               placeholder="0"
@@ -240,7 +242,7 @@ export default function Home() {
             />
             <Input
               isRequired
-              label="Chỉ số cuối"
+              label={t("ui.electric.tailIndex")}
               labelPlacement="outside"
               name="endIndex"
               placeholder="100"
@@ -249,7 +251,7 @@ export default function Home() {
               min={0}
             />
             <Input
-              label="VAT (%)"
+              label={t("ui.electric.VATPercent")}
               labelPlacement="outside"
               name="vat"
               type="number"
@@ -258,15 +260,15 @@ export default function Home() {
               max={100}
             />
             <Button type="submit" variant="bordered">
-              Submit
+              {t("ui.electric.submit")}
             </Button>
             {bills.length > 0 && (
               <Table aria-label="Example table with dynamic content">
                 <TableHeader>
-                  <TableColumn>Bậc</TableColumn>
-                  <TableColumn>Chưa tính VAT</TableColumn>
-                  <TableColumn>Tiền VAT</TableColumn>
-                  <TableColumn>Tổng</TableColumn>
+                  <TableColumn>{t("ui.electric.rank")}</TableColumn>
+                  <TableColumn>{t("ui.electric.notVAT")}</TableColumn>
+                  <TableColumn>{t("ui.electric.VATPrices")}</TableColumn>
+                  <TableColumn>{t("ui.electric.total")}</TableColumn>
                 </TableHeader>
                 <TableBody items={bills}>
                   {(bill) => (
@@ -282,24 +284,24 @@ export default function Home() {
             )}
             {submitted && (
               <div className="text-small text-default-500">
-                Bạn đã nhập: <code>{JSON.stringify(submitted)}</code>
+                <code>{JSON.stringify(submitted)}</code>
               </div>
             )}
             {totalAmountBeforeVat !== null && (
               <div className="text-small text-default-500">
-                Tổng tiền điện (Chưa tính VAT):{" "}
+                {t("ui.electric.totalNotVAT")}{" "}
                 <strong>{formatCurrency(totalAmountBeforeVat)} VND </strong>
               </div>
             )}
             {totalVatAmount !== null && (
               <div className="text-small text-default-500">
-                Tổng tiền VAT phải trả:{" "}
+                {t("ui.electric.totalVAT")}{" "}
                 <strong>{formatCurrency(totalVatAmount)} VND </strong>
               </div>
             )}
             {totalAmountAfter !== null && (
               <div className="text-small text-default-500">
-                Tổng tiền điện (có VAT):{" "}
+                {t("ui.electric.totalAll")}{" "}
                 <strong>{formatCurrency(totalAmountAfter)} VND </strong>
               </div>
             )}
