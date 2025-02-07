@@ -1,17 +1,19 @@
 import Typewriter from "@/cuicui/other/text-animation/typewritter/typewritter";
+import { useTranslations } from "next-intl";
 
 export default function Home() {
+  const t = useTranslations();
   return (
     <div className="text-xl flex items-center justify-center h-screen px-2">
       <p className="whitespace-pre-wrap">
-        <span>{"We're born 🌞 to "}</span>
+        <span>{t("ui.home.t1")}</span>
         <Typewriter
           text={[
-            "experience",
-            "dance",
-            "love",
-            "be alive",
-            "create things that make the world a better place",
+            t("ui.home.t2"),
+            t("ui.home.t3"),
+            t("ui.home.t4"),
+            t("ui.home.t5"),
+            t("ui.home.t6"),
           ]}
           speed={70}
           className="text-yellow-500"

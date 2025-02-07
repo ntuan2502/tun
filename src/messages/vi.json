@@ -39,6 +39,14 @@
       "totalNotVAT": "Tổng tiền điện (chưa bao gồm VAT):",
       "totalVAT": "Tổng VAT:",
       "totalAll": "Tổng tiền điện (đã bao gồm VAT):"
+    },
+    "home": {
+      "t1": "Chúng tôi sinh ra 🌞 để ",
+      "t2": "trải nghiệm",
+      "t3": "nhảy",
+      "t4": "yêu",
+      "t5": "sống",
+      "t6": " tạo ra những thứ làm cho thế giới trở thành một nơi tốt đẹp hơn"
     }
   }
 }

@@ -39,6 +39,14 @@
       "totalNotVAT": "Total (not include VAT):",
       "totalVAT": "Total VAT:",
       "totalAll": "Total (include VAT):"
+    },
+    "home": {
+      "t1": "We're born 🌞 to ",
+      "t2": "experience",
+      "t3": "dance",
+      "t4": "love",
+      "t5": "be alive",
+      "t6": "create things that make the world a better place"
     }
   }
 }
