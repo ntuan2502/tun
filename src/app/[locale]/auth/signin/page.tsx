@@ -1,4 +1,5 @@
 "use client";
+import { Paths } from "@/paths";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -15,7 +16,7 @@ export default function Signin() {
                 <p className="text-sm mt-4">
                   Don&apos;t have an account?
                   <Link
-                    href="/auth/signup"
+                    href={Paths.signup}
                     className="text-blue-600 font-semibold hover:underline ml-1 whitespace-nowrap"
                   >
                     Sign up here

@@ -30,10 +30,11 @@ import {
 import { signOut, useSession } from "next-auth/react";
 import Language from "@/app/components/Language";
 import { useTranslations } from "next-intl";
+import { Paths } from "@/paths";
 
 export function LogoComponent() {
   return (
-    <Link href="/">
+    <Link href={Paths.home}>
       <NavbarBrand>
         <LogoSVG />
         <p className="font-bold text-inherit">Tún</p>
@@ -99,7 +100,7 @@ export default function HeroNavbar() {
               description={t("ui.nav.electric.description")}
               startContent={icons.flash}
               as={Link}
-              href="/tinh-tien-dien"
+              href={Paths.electric}
             >
               {t("ui.nav.electric.title")}
             </DropdownItem>
@@ -183,10 +184,15 @@ export default function HeroNavbar() {
         ) : (
           <>
             <NavbarItem className="hidden sm:flex">
-              <Link href="/auth/signin">{t("ui.nav.signin.title")}</Link>
+              <Link href={Paths.signin}>{t("ui.nav.signin.title")}</Link>
             </NavbarItem>
             <NavbarItem className="hidden sm:flex">
-              <Button as={Link} color="warning" href="/auth/signup" variant="flat">
+              <Button
+                as={Link}
+                color="warning"
+                href={Paths.signup}
+                variant="flat"
+              >
                 {t("ui.nav.signup.title")}
               </Button>
             </NavbarItem>
@@ -203,13 +209,13 @@ export default function HeroNavbar() {
 
       <NavbarMenu>
         <NavbarMenuItem>
-          <Link className="w-full" href="/">
-          {t("ui.nav.home.title")}
+          <Link className="w-full" href={Paths.home}>
+            {t("ui.nav.home.title")}
           </Link>
         </NavbarMenuItem>
         <NavbarMenuItem>
-          <Link className="w-full" href="/tinh-tien-dien">
-          {t("ui.nav.electric.title")}
+          <Link className="w-full" href={Paths.electric}>
+            {t("ui.nav.electric.title")}
           </Link>
         </NavbarMenuItem>
         {session && session.user ? (
@@ -225,12 +231,12 @@ export default function HeroNavbar() {
         ) : (
           <>
             <NavbarMenuItem>
-              <Link className="w-full" href="/auth/signin">
+              <Link className="w-full" href={Paths.signin}>
                 {t("ui.nav.signin.title")}
               </Link>
             </NavbarMenuItem>
             <NavbarMenuItem>
-              <Link className="w-full" href="/auth/signup">
+              <Link className="w-full" href={Paths.signup}>
                 {t("ui.nav.signup.title")}
               </Link>
             </NavbarMenuItem>

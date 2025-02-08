@@ -10,6 +10,7 @@ import {
   useDisclosure,
 } from "@heroui/react";
 import Image from "next/image";
+import { Paths } from "@/paths";
 
 export default function Signup() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -29,7 +30,7 @@ export default function Signup() {
                   <p className="text-sm mt-4 ">
                     Already have an account?
                     <Link
-                      href="/auth/signin"
+                      href={Paths.signin}
                       className="text-blue-600 font-semibold hover:underline ml-1 whitespace-nowrap"
                     >
                       Sign in here
